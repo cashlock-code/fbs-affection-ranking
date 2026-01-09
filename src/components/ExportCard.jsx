@@ -28,7 +28,7 @@ export default function ExportCard({ teamsById, tierState }) {
         const t = teamsById[id];
         return (
           <div className="exportTeam" key={id}>
-            <img className="logo" src={t.logoUrl} alt="" />
+            <img className="logo" src={t.logoUrl} alt="" crossOrigin="anonymous" />
             <div className="team-name">{t.name}
               {tid === "favorite" ? " 👑" : ""}
   {tid === "always_lose" ? " 😈" : ""}  

@@ -47,9 +47,7 @@ export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, s
         </SortableContext>
       </div>
 
-      {!ordered && tier.capacity !== 1 ? (
-        <div className="dragHint">Unordered tiers auto-sort alphabetically.</div>
-      ) : null}
+
     </div>
   );
 }

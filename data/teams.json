@@ -8,7 +8,7 @@
   {
     "id": "akron",
     "name": "Akron",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2006.png"
   },
   {
@@ -50,7 +50,7 @@
   {
     "id": "army",
     "name": "Army",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/349.png"
   },
   {
@@ -62,7 +62,7 @@
   {
     "id": "ball-state",
     "name": "Ball State",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2050.png"
   },
   {
@@ -86,13 +86,13 @@
   {
     "id": "bowling-green",
     "name": "Bowling Green",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/189.png"
   },
   {
     "id": "buffalo",
     "name": "Buffalo",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2084.png"
   },
   {
@@ -110,13 +110,13 @@
   {
     "id": "central-michigan",
     "name": "Central Michigan",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2117.png"
   },
   {
     "id": "charlotte",
     "name": "Charlotte",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2429.png"
   },
   {
@@ -164,13 +164,13 @@
   {
     "id": "east-carolina",
     "name": "East Carolina",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/151.png"
   },
   {
     "id": "eastern-michigan",
     "name": "Eastern Michigan",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2199.png"
   },
   {
@@ -182,7 +182,7 @@
   {
     "id": "florida-atlantic",
     "name": "Florida Atlantic",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2226.png"
   },
   {
@@ -296,7 +296,7 @@
   {
     "id": "kent-state",
     "name": "Kent State",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2309.png"
   },
   {
@@ -350,13 +350,13 @@
   {
     "id": "massachusetts",
     "name": "Massachusetts",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/113.png"
   },
   {
     "id": "memphis",
     "name": "Memphis",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/235.png"
   },
   {
@@ -368,7 +368,7 @@
   {
     "id": "miami-oh",
     "name": "Miami (OH)",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/193.png"
   },
   {
@@ -416,7 +416,7 @@
   {
     "id": "navy",
     "name": "Navy",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2426.png"
   },
   {
@@ -458,13 +458,13 @@
   {
     "id": "north-texas",
     "name": "North Texas",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/249.png"
   },
   {
     "id": "northern-illinois",
     "name": "Northern Illinois",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2459.png"
   },
   {
@@ -482,7 +482,7 @@
   {
     "id": "ohio",
     "name": "Ohio",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/195.png"
   },
   {
@@ -548,7 +548,7 @@
   {
     "id": "rice",
     "name": "Rice",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/242.png"
   },
   {
@@ -596,7 +596,7 @@
   {
     "id": "south-florida",
     "name": "South Florida",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/58.png"
   },
   {
@@ -626,7 +626,7 @@
   {
     "id": "temple",
     "name": "Temple",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/218.png"
   },
   {
@@ -662,7 +662,7 @@
   {
     "id": "toledo",
     "name": "Toledo",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2649.png"
   },
   {
@@ -674,19 +674,19 @@
   {
     "id": "tulane",
     "name": "Tulane",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2655.png"
   },
   {
     "id": "tulsa",
     "name": "Tulsa",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/202.png"
   },
   {
     "id": "uab",
     "name": "UAB",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/5.png"
   },
   {
@@ -746,7 +746,7 @@
   {
     "id": "utsa",
     "name": "UTSA",
-    "conference": "American Athletic",
+    "conference": "American",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2636.png"
   },
   {
@@ -800,7 +800,7 @@
   {
     "id": "western-michigan",
     "name": "Western Michigan",
-    "conference": "Mid-American",
+    "conference": "MAC",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2711.png"
   },
   {

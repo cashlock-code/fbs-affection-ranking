@@ -91,6 +91,7 @@ export default function App() {
 
   const [exportTextOpen, setExportTextOpen] = useState(false);
   const [exportPngOpen, setExportPngOpen] = useState(false);
+  const [sickoMode, setSickoMode] = useState(false);
 
   const [activeId, setActiveId] = useState(null);
 
@@ -112,6 +113,16 @@ export default function App() {
     return sortIdsByName(ids, teamsById);
   }, [allIds, assignedSet, teamsById]);
 
+  const allTeamsRanked = rawPoolIds.length === 0;
+
+  const hasFavoriteAndHated =
+    tierState.favorite.teamIds.length === 1 &&
+    tierState.always_lose.teamIds.length === 1;
+
+  const completionOk = sickoMode
+    ? hasFavoriteAndHated && allTeamsRanked
+    : hasFavoriteAndHated;
+
   const poolIds = useMemo(() => {
     const q = search.trim().toLowerCase();
     return rawPoolIds.filter((id) => {
@@ -123,7 +134,10 @@ export default function App() {
     });
   }, [rawPoolIds, teamsById, search, conference]);
 
-  const completionOk = tierState.favorite.teamIds.length === 1 && tierState.always_lose.teamIds.length === 1;
+  const hasFavoriteAndHated =
+    tierState.favorite.teamIds.length === 1 && tierState.always_lose.teamIds.length === 1;
+
+  const completionOk = sickoMode ? (hasFavoriteAndHated && allTeamsRanked) : hasFavoriteAndHated;
 
   const exportText = useMemo(() => buildExportText(teamsById, tierState), [teamsById, tierState]);
 
@@ -162,6 +176,7 @@ export default function App() {
   }
 
   function handleToggleOrdered(tierId, orderedChecked) {
+    if (sickoMode) return; // SICKO MODE locks ordered on
     setTierState((prev) => {
       const next = structuredClone(prev);
       next[tierId].ordered = orderedChecked;
@@ -322,22 +337,92 @@ export default function App() {
 
   const activeTeam = activeId ? teamsById[activeId] : null;
 
+  const exportDisabledReason = (() => {
+  if (!hasFavoriteAndHated)
+    return "To export, pick a Favorite and a Most Hated team.";
+  if (sickoMode && !allTeamsRanked)
+    return "SICKO MODE: You must place every team (pool must be empty) to export.";
+  return "";
+})();
+
+function DisabledTooltipWrap({ disabled, title, children }) {
+  return (
+    <span title={disabled ? title : ""} style={{ display: "inline-block" }}>
+      {children}
+    </span>
+  );
+}
+
+function enableSickoMode() {
+  setTierState((prev) => {
+    const next = structuredClone(prev);
+
+    // Force ordered ON for every toggleable tier
+    for (const tid of TIER_ORDER) {
+      const tier = TIERS[tid];
+      if (tier.toggleableOrdered) {
+        next[tid].ordered = true;
+
+        // Alphabetize immediately when switching modes (consistent with your rules)
+        next[tid].teamIds = sortIdsByName(next[tid].teamIds, teamsById);
+      }
+    }
+
+    return next;
+  });
+
+  setSickoMode(true);
+}
+
+function disableSickoMode() {
+  // We do NOT automatically turn ordered back off — that would destroy user intent.
+  // We simply remove the stricter export rule and banner.
+  setSickoMode(false);
+}
+
+function toggleSickoMode() {
+  if (sickoMode) disableSickoMode();
+  else enableSickoMode();
+}
+
+
+
   return (
     <div className="shell">
       <div className="header">
         <div className="hgroup">
           <h1>FBS Affection Ranking</h1>
-          <p>Drag teams into tiers. Unordered tiers (and pool) auto-sort alphabetically.</p>
+          <p>Drag teams into tiers. Unordered tiers auto-sort alphabetically.</p>
+          {sickoMode ? (
+    <p style={{ marginTop: 6, color: "#7a1b1b", fontWeight: 800 }}>
+      SICKO MODE ENABLED: You must rank and order every team
+    </p>
+  ) : null}  
         </div>
 
         <div className="actions">
           <button className="danger" onClick={handleReset}>Reset</button>
-          <button className="primary" onClick={() => setExportTextOpen(true)} disabled={!completionOk}>
-            Export Text
-          </button>
-          <button className="primary" onClick={() => setExportPngOpen(true)} disabled={!completionOk}>
-            Export PNG
-          </button>
+
+          <button
+    className={sickoMode ? "primary" : ""}
+    onClick={toggleSickoMode}
+    title="Forces ordered tiers and requires ranking every team to export."
+  >
+    SICKO MODE
+  </button>
+
+           <DisabledTooltipWrap disabled={!completionOk} title={exportDisabledReason}>
+    <button className="primary" onClick={() => setExportTextOpen(true)} disabled={!completionOk}>
+      Export Text
+    </button>
+  </DisabledTooltipWrap>
+
+  <DisabledTooltipWrap disabled={!completionOk} title={exportDisabledReason}>
+    <button className="primary" onClick={() => setExportPngOpen(true)} disabled={!completionOk}>
+      Export PNG
+    </button>
+  </DisabledTooltipWrap> 
+
         </div>
       </div>
 
@@ -369,6 +454,7 @@ export default function App() {
   ordered={tierState[tid].ordered}
   onToggleOrdered={handleToggleOrdered}
   teamsById={teamsById}   // ✅ pass through
+  sickoMode={sickoMode}
 />
 
             );
@@ -378,7 +464,7 @@ export default function App() {
             <div className="panel" style={{ padding: 12 }}>
               <strong>To export:</strong>
               <div className="small" style={{ marginTop: 6 }}>
-                Pick exactly one team for <strong>Favorite Team</strong> and one team for <strong>Team That Should Always Lose</strong>.
+      {exportDisabledReason}
               </div>
             </div>
           ) : null}

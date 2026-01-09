@@ -2,8 +2,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableTeam from "./SortableTeam.jsx";
 
-export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById }) {
-  const { setNodeRef, isOver } = useDroppable({ id: tier.id });
+export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, sickoMode }) {  const { setNodeRef, isOver } = useDroppable({ id: tier.id });
 
   const canToggle = tier.toggleableOrdered;
 
@@ -20,7 +19,8 @@ export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById })
             <input
               type="checkbox"
               checked={ordered}
-              onChange={(e) => onToggleOrdered(tier.id, e.target.checked)}
+               onChange={(e) => onToggleOrdered(tier.id, e.target.checked)}
+                 disabled={sickoMode}   // lock in sicko mode
             />
             Ordered
           </label>

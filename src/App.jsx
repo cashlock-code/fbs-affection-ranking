@@ -386,7 +386,7 @@ function toggleSickoMode() {
     <div className="shell">
       <div className="header">
         <div className="hgroup">
-          <h1>FBS Affection Ranking</h1>
+          <h1>College Football Feelings Tracker (FBS)</h1>
           <p>Drag teams into tiers. Unordered tiers auto-sort alphabetically.</p>
           {sickoMode ? (
     <p style={{ marginTop: 6, color: "#7a1b1b", fontWeight: 800 }}>

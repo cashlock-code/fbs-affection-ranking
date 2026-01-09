@@ -115,6 +115,10 @@ export default function App() {
 
   const allTeamsRanked = rawPoolIds.length === 0;
 
+ const hasFavoriteAndHated =
+    tierState.favorite.teamIds.length === 1 && tierState.always_lose.teamIds.length === 1;
+
+
   const completionOk = sickoMode
     ? hasFavoriteAndHated && allTeamsRanked
     : hasFavoriteAndHated;
@@ -130,9 +134,7 @@ export default function App() {
     });
   }, [rawPoolIds, teamsById, search, conference]);
 
-  const hasFavoriteAndHated =
-    tierState.favorite.teamIds.length === 1 && tierState.always_lose.teamIds.length === 1;
-
+ 
 
   const exportText = useMemo(() => buildExportText(teamsById, tierState), [teamsById, tierState]);
 

@@ -134,8 +134,6 @@ export default function App() {
     });
   }, [rawPoolIds, teamsById, search, conference]);
 
- 
-
   const exportText = useMemo(() => buildExportText(teamsById, tierState), [teamsById, tierState]);
 
   function findContainerOf(teamId) {

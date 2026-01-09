@@ -6,7 +6,7 @@ export default function ExportCard({ teamsById, tierState }) {
   return (
     <div className="exportCard" id="export-card">
       <div className="exportTitle">
-        <h1>FBS Affection Ranking</h1>
+        <h1>My FBS Feelings</h1>
         <div className="small">{now.toLocaleDateString()}</div>
       </div>
 
@@ -29,7 +29,10 @@ export default function ExportCard({ teamsById, tierState }) {
         return (
           <div className="exportTeam" key={id}>
             <img className="logo" src={t.logoUrl} alt="" />
-            <div className="team-name">{t.name}</div>
+            <div className="team-name">{t.name}
+              {tid === "favorite" ? " 👑" : ""}
+  {tid === "always_lose" ? " 😈" : ""}  
+            </div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               {ordered && tier.capacity !== 1 ? (
                 <span className="rankNum">#{idx + 1}</span>
@@ -44,6 +47,9 @@ export default function ExportCard({ teamsById, tierState }) {
 })}
 
       </div>
+      <div className="exportFooterUrl">
+  cashlock-code.github.io/fbs-affection-ranking/
+</div>
     </div>
   );
 }

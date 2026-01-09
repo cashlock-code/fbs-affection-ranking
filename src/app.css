@@ -260,11 +260,11 @@ button:disabled {
 }
 
 .exportCard {
-  width: 1080px; /* social-optimized */
+  width: 900px; /* narrower social export */
   background: linear-gradient(180deg, #f3f8f2, #ffffff);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 18px;
+  padding: 16px;
 }
 
 .exportTitle {
@@ -291,7 +291,7 @@ button:disabled {
   background: white;
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 12px;
+  padding: 10px; /* was 12px */
 }
 
 .exportTier h2 {
@@ -316,3 +316,11 @@ button:disabled {
   color: var(--muted);
   font-size: 12px;
 }
+
+.exportFooterUrl {
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(20, 32, 24, 0.35);
+  text-align: center;
+}
+

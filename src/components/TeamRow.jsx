@@ -8,6 +8,8 @@ export default function TeamRow({
   setNodeRef,
   style,
   showRank,
+  onClick,
+  selected,
 }) {
   if (!team) return null;
 
@@ -15,9 +17,10 @@ export default function TeamRow({
     <div
       ref={setNodeRef}
       style={style}
-      className="team-row"
+      className={`team-row${selected ? " selected" : ""}`}
       {...attributes}
       {...listeners}
+      onClick={onClick}
       title={team.name}
     >
       <img className="logo" src={team.logoUrl} alt={`${team.name} logo`} />

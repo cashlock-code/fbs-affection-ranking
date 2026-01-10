@@ -2,7 +2,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableTeam from "./SortableTeam.jsx";
 
-export default function Pool({ poolIds, teamsById, search, setSearch, conference, setConference, conferences }) {
+export default function Pool({ poolIds, teamsById, search, setSearch, conference, setConference, conferences, onContainerTap, onTeamTap, selectedTeamId }) {  
   const { setNodeRef, isOver } = useDroppable({ id: "pool" });
 
   return (
@@ -33,15 +33,25 @@ export default function Pool({ poolIds, teamsById, search, setSearch, conference
 
         <div
           ref={setNodeRef}
-          className="list"
+          className="list tapTarget"
+          onClick={() => onContainerTap("pool")}
           style={{
             outline: isOver ? "2px solid rgba(47, 111, 62, 0.45)" : "none",
           }}
         >
           <SortableContext items={poolIds} strategy={verticalListSortingStrategy}>
             {poolIds.map((id) => (
-              <SortableTeam key={id} id={id} team={teamsById[id]} showRank={false} />
-            ))}
+  <SortableTeam
+    key={id}
+    id={id}
+    team={teamsById[id]}
+    showRank={false}
+    selected={selectedTeamId === id}
+    onClick={(e) => {
+      e.stopPropagation();
+      onTeamTap(id);
+    }}
+  />            ))}
           </SortableContext>
         </div>
 

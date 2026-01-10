@@ -86,6 +86,8 @@ export default function App() {
   const allIds = useMemo(() => sortIdsByName(teamsData.map((t) => t.id), teamsById), [teamsById]);
 
   const [tierState, setTierState] = useState(() => initialTierState());
+const [selectedTeamId, setSelectedTeamId] = useState(null);
+
   const [search, setSearch] = useState("");
   const [conference, setConference] = useState("ALL");
 
@@ -380,7 +382,115 @@ function toggleSickoMode() {
   else enableSickoMode();
 }
 
+function onTeamTap(tappedId) {
+  // If nothing selected yet, select the tapped team
+  if (!selectedTeamId) {
+    setSelectedTeamId(tappedId);
+    return;
+  }
 
+  // Tapping the same selected team toggles it off
+  if (selectedTeamId === tappedId) {
+    setSelectedTeamId(null);
+    return;
+  }
+
+  // If a team is selected and you tap a different team, treat it as a "drop on that team"
+  const destContainer = findContainerOf(tappedId);
+  moveSelectedTo(destContainer, tappedId); // pass "overTeamId"
+}
+
+
+function moveSelectedTo(containerId, overTeamId = null) {
+  if (!selectedTeamId) return;
+
+  const teamId = selectedTeamId;
+  const from = findContainerOf(teamId);
+
+  // Tap same container = clear selection
+  if (from === containerId) {
+    setSelectedTeamId(null);
+    return;
+  }
+
+  // Move to pool
+  if (containerId === POOL_ID) {
+    if (from !== POOL_ID) {
+      setTierState((prev) => {
+        const next = structuredClone(prev);
+        next[from].teamIds = next[from].teamIds.filter((x) => x !== teamId);
+        normalizeAll(next);
+        return next;
+      });
+    }
+    setSelectedTeamId(null);
+    return;
+  }
+
+  // Move to tier (supports "drop on item" via overTeamId)
+  setTierState((prev) => {
+    const next = structuredClone(prev);
+
+    // Remove from source tier if needed
+    if (from !== POOL_ID) {
+      next[from].teamIds = next[from].teamIds.filter((x) => x !== teamId);
+    }
+
+    const destTier = TIERS[containerId];
+    const destIds = next[containerId].teamIds;
+
+    // Single-capacity swap (matches drag semantics)
+    if (destTier.capacity === 1) {
+      const occupying = destIds.length === 1 ? destIds[0] : null;
+      next[containerId].teamIds = [teamId];
+
+      if (occupying && occupying !== teamId) {
+        if (from !== POOL_ID) {
+          // send displaced team back to source tier
+          const srcTier = TIERS[from];
+          const srcOrdered = next[from].ordered && srcTier.toggleableOrdered;
+          next[from].teamIds = normalizeContainer(
+            from,
+            [...next[from].teamIds, occupying],
+            teamsById,
+            srcOrdered
+          );
+        }
+        // if source was pool, displaced team simply returns to pool (derived)
+      }
+
+      normalizeAll(next);
+      return next;
+    }
+
+    // Normal tier insert
+    const isOrderedDest = next[containerId].ordered && destTier.toggleableOrdered;
+
+    // Remove if already present to avoid duplicates
+    let base = destIds.filter((x) => x !== teamId);
+
+    if (isOrderedDest && overTeamId && base.includes(overTeamId)) {
+      // Insert at the tapped team's index (drop-on-item behavior)
+      const idx = base.indexOf(overTeamId);
+      base.splice(idx, 0, teamId);
+      next[containerId].teamIds = base; // keep order
+    } else {
+      // Append; normalizeContainer will alpha-sort if unordered
+      next[containerId].teamIds = [...base, teamId];
+      next[containerId].teamIds = normalizeContainer(
+        containerId,
+        next[containerId].teamIds,
+        teamsById,
+        isOrderedDest
+      );
+    }
+
+    normalizeAll(next);
+    return next;
+  });
+
+  setSelectedTeamId(null);
+}
 
   return (
     <div className="shell">
@@ -436,6 +546,9 @@ function toggleSickoMode() {
           conference={conference}
           setConference={setConference}
           conferences={conferences}
+          onContainerTap={moveSelectedTo}
+onTeamTap={onTeamTap}
+selectedTeamId={selectedTeamId}
         />
 
         <div className="tiers">
@@ -450,6 +563,9 @@ function toggleSickoMode() {
   onToggleOrdered={handleToggleOrdered}
   teamsById={teamsById}   // ✅ pass through
   sickoMode={sickoMode}
+  onContainerTap={moveSelectedTo}
+onTeamTap={onTeamTap}
+selectedTeamId={selectedTeamId}
 />
 
             );

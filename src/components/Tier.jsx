@@ -2,8 +2,8 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableTeam from "./SortableTeam.jsx";
 
-export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, sickoMode }) {  const { setNodeRef, isOver } = useDroppable({ id: tier.id });
-
+export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, sickoMode, onContainerTap, onTeamTap, selectedTeamId }) {
+  const { setNodeRef, isOver } = useDroppable({ id: tier.id });
   const canToggle = tier.toggleableOrdered;
 
   return (
@@ -29,7 +29,8 @@ export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, s
 
       <div
         ref={setNodeRef}
-        className="list"
+        className="list tapTarget"
+        onClick={() => onContainerTap(tier.id)}
         style={{
           outline: isOver ? "2px solid rgba(47, 111, 62, 0.45)" : "none",
         }}
@@ -42,6 +43,11 @@ export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, s
               team={teamsById[id]}         // ✅ this is the fix
               showRank={ordered && tier.capacity !== 1}
               rank={idx + 1}
+              selected={selectedTeamId === id}
+   onClick={(e) => {
+     e.stopPropagation();
+     onTeamTap(id);
+   }}
             />
           ))}
         </SortableContext>

@@ -152,7 +152,7 @@
   {
     "id": "delaware",
     "name": "Delaware",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/48.png"
   },
   {
@@ -188,7 +188,7 @@
   {
     "id": "florida-international",
     "name": "FIU",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2229.png"
   },
   {
@@ -266,7 +266,7 @@
   {
     "id": "jacksonville-state",
     "name": "Jax State",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/55.png"
   },
   {
@@ -290,7 +290,7 @@
   {
     "id": "kennesaw-state",
     "name": "Kennesaw State",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/338.png"
   },
   {
@@ -308,7 +308,7 @@
   {
     "id": "liberty",
     "name": "Liberty",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2335.png"
   },
   {
@@ -320,7 +320,7 @@
   {
     "id": "louisiana-tech",
     "name": "Louisiana Tech",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2348.png"
   },
   {
@@ -386,7 +386,7 @@
   {
     "id": "middle-tennessee",
     "name": "Middle Tennessee",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2393.png"
   },
   {
@@ -410,7 +410,7 @@
   {
     "id": "missouri-state",
     "name": "Missouri State",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2623.png"
   },
   {
@@ -446,7 +446,7 @@
   {
     "id": "new-mexico-state",
     "name": "New Mexico State",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/166.png"
   },
   {
@@ -476,7 +476,7 @@
   {
     "id": "notre-dame",
     "name": "Notre Dame",
-    "conference": "FBS Independents",
+    "conference": "Independent",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png"
   },
   {
@@ -560,7 +560,7 @@
   {
     "id": "sam-houston",
     "name": "Sam Houston",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2534.png"
   },
   {
@@ -704,7 +704,7 @@
   {
     "id": "uconn",
     "name": "UConn",
-    "conference": "FBS Independents",
+    "conference": "Independent",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/41.png"
   },
   {
@@ -740,7 +740,7 @@
   {
     "id": "utep",
     "name": "UTEP",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/2638.png"
   },
   {
@@ -794,7 +794,7 @@
   {
     "id": "western-kentucky",
     "name": "Western Kentucky",
-    "conference": "Conference USA",
+    "conference": "CUSA",
     "logoUrl": "https://a.espncdn.com/i/teamlogos/ncaa/500/98.png"
   },
   {

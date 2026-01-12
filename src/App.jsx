@@ -579,26 +579,67 @@ const to =
     setSelectedTeamId(null);
   }
 
-  // Sicko arrows
-  function sickoMoveUp(id) {
-    setSickoIds((prev) => {
-      const idx = prev.indexOf(id);
-      if (idx <= 0) return prev;
-      return arrayMove(prev, idx, idx - 1);
-    });
-  }
-
-  function sickoMoveDown(id) {
-    setSickoIds((prev) => {
-      const idx = prev.indexOf(id);
-      if (idx === -1 || idx >= prev.length - 1) return prev;
-      return arrayMove(prev, idx, idx + 1);
-    });
-  }
-
   const exportText = useMemo(() => {
     return sickoMode ? buildExportTextSicko(teamsById, sickoIds) : buildExportTextNormal(teamsById, tierState);
   }, [teamsById, tierState, sickoMode, sickoIds]);
+
+useEffect(() => {
+  if (!sickoMode) return;
+
+  function isTypingTarget(el) {
+    if (!el) return false;
+    const tag = el.tagName?.toLowerCase();
+    return tag === "input" || tag === "textarea" || tag === "select" || el.isContentEditable;
+  }
+
+  function ensureSelection() {
+    // If nothing is selected, select the first team to enable keyboard control
+    if (!sickoSelectedId && sickoIds.length > 0) {
+      setSickoSelectedId(sickoIds[0]);
+      return sickoIds[0];
+    }
+    return sickoSelectedId;
+  }
+
+  function onKeyDown(e) {
+    if (isTypingTarget(e.target)) return;
+
+    const key = e.key;
+
+    // Always allow Esc to clear selection
+    if (key === "Escape") {
+      if (sickoSelectedId) {
+        e.preventDefault();
+        setSickoSelectedId(null);
+      }
+      return;
+    }
+
+    // Only handle shortcuts in Sicko Mode
+    // Normalize letter keys (case-insensitive)
+    const k = typeof key === "string" ? key.toLowerCase() : key;
+
+    const moveKeys = new Set(["arrowup", "arrowdown", "j", "k", "t", "b", "m"]);
+    if (!moveKeys.has(k)) return;
+
+    // Ensure we have a selection
+    const sel = ensureSelection();
+    if (!sel) return;
+
+    // Prevent page scroll on arrow keys
+    if (k === "arrowup" || k === "arrowdown") e.preventDefault();
+
+    if (k === "arrowup" || k === "k") sickoMoveSelected("up");
+    else if (k === "arrowdown" || k === "j") sickoMoveSelected("down");
+    else if (k === "t") sickoMoveSelected("top");
+    else if (k === "b") sickoMoveSelected("bottom");
+    else if (k === "m") sickoMoveSelected("middle");
+  }
+
+  window.addEventListener("keydown", onKeyDown, { passive: false });
+  return () => window.removeEventListener("keydown", onKeyDown);
+}, [sickoMode, sickoIds, sickoSelectedId, sickoMoveSelected]);
+
 
   return (
     <div className="page">

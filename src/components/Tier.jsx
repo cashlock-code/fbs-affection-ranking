@@ -2,25 +2,36 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableTeam from "./SortableTeam.jsx";
 
-export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, sickoMode, onContainerTap, onTeamTap, selectedTeamId }) {
+export default function Tier({
+  tier,
+  ids,
+  ordered,
+  onToggleOrdered,
+  teamsById,
+  sickoMode = false,
+  onContainerTap,
+  onTeamTap,
+  selectedTeamId,
+}) {
   const { setNodeRef, isOver } = useDroppable({ id: tier.id });
-  const canToggle = tier.toggleableOrdered;
+
+  const canToggle = !!tier.toggleableOrdered;
 
   return (
     <div className="panel tier">
-      <div className="tier-top">
-        <div className="tier-title">
+      <div className="tierHeader">
+        <div>
           <h2>{tier.name}</h2>
-          <span className="small">{ids.length}{tier.capacity === 1 ? "/1" : ""}</span>
+          {tier.note ? <div className="small">{tier.note}</div> : null}
         </div>
 
         {canToggle ? (
           <label className="toggle">
             <input
               type="checkbox"
-              checked={ordered}
-               onChange={(e) => onToggleOrdered(tier.id, e.target.checked)}
-                 disabled={sickoMode}   // lock in sicko mode
+              checked={!!ordered}
+              onChange={(e) => onToggleOrdered(tier.id, e.target.checked)}
+              disabled={!!sickoMode}
             />
             Ordered
           </label>
@@ -30,9 +41,10 @@ export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, s
       <div
         ref={setNodeRef}
         className="list tapTarget"
-        onClick={() => onContainerTap(tier.id)}
+        onClick={() => onContainerTap?.(tier.id)}
         style={{
-          outline: isOver ? "2px solid rgba(47, 111, 62, 0.45)" : "none",
+          background: isOver ? "rgba(47, 111, 62, 0.06)" : "transparent",
+          borderRadius: 12,
         }}
       >
         <SortableContext items={ids} strategy={verticalListSortingStrategy}>
@@ -40,20 +52,18 @@ export default function Tier({ tier, ids, ordered, onToggleOrdered, teamsById, s
             <SortableTeam
               key={id}
               id={id}
-              team={teamsById[id]}         // ✅ this is the fix
-              showRank={ordered && tier.capacity !== 1}
+              team={teamsById[id]}
+              showRank={!!ordered && tier.capacity !== 1}
               rank={idx + 1}
               selected={selectedTeamId === id}
-   onClick={(e) => {
-     e.stopPropagation();
-     onTeamTap(id);
-   }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onTeamTap?.(id);
+              }}
             />
           ))}
         </SortableContext>
       </div>
-
-
     </div>
   );
 }

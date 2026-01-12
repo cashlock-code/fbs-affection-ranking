@@ -1,63 +1,79 @@
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableTeam from "./SortableTeam.jsx";
+import { POOL_ID } from "../data/tiers.js";
 
-export default function Pool({ poolIds, teamsById, search, setSearch, conference, setConference, conferences, onContainerTap, onTeamTap, selectedTeamId }) {  
-  const { setNodeRef, isOver } = useDroppable({ id: "pool" });
+export default function Pool({
+  poolIds,
+  teamsById,
+  search,
+  setSearch,
+  conference,
+  setConference,
+  conferences,
+  onContainerTap,
+  onTeamTap,
+  selectedTeamId,
+}) {
+  const { setNodeRef, isOver } = useDroppable({ id: POOL_ID });
 
   return (
     <div className="panel">
-      <div className="panel-header">
-        <h2 style={{ margin: 0, fontSize: 15 }}>Unranked Teams</h2>
-        <p className="small" style={{ marginTop: 6 }}>
-          {poolIds.length} teams
-        </p>
-      </div>
-      <div className="panel-body">
-        <div className="row" style={{ marginBottom: 10 }}>
+      <div className="poolTop">
+        <div className="row">
           <input
-            className="input"
+            type="text"
+            placeholder="Search teams…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search teams…"
+            name="team-search"
+            id="team-search"
           />
-        </div>
-        <div className="row" style={{ marginBottom: 10 }}>
-          <select className="select" value={conference} onChange={(e) => setConference(e.target.value)}>
-            <option value="ALL">All conferences</option>
+
+          <select
+            value={conference}
+            onChange={(e) => setConference(e.target.value)}
+            name="conference"
+            id="conference"
+          >
             {conferences.map((c) => (
-              <option key={c} value={c}>{c}</option>
+              <option key={c} value={c}>
+                {c}
+              </option>
             ))}
           </select>
-        </div>
 
-        <div
-          ref={setNodeRef}
-          className="list tapTarget"
-          onClick={() => onContainerTap("pool")}
-          style={{
-            outline: isOver ? "2px solid rgba(47, 111, 62, 0.45)" : "none",
-          }}
-        >
-          <SortableContext items={poolIds} strategy={verticalListSortingStrategy}>
-            {poolIds.map((id) => (
-  <SortableTeam
-    key={id}
-    id={id}
-    team={teamsById[id]}
-    showRank={false}
-    selected={selectedTeamId === id}
-    onClick={(e) => {
-      e.stopPropagation();
-      onTeamTap(id);
-    }}
-  />            ))}
-          </SortableContext>
+          <div className="small" style={{ marginLeft: "auto" }}>
+            Unranked: {poolIds.length}
+          </div>
         </div>
+      </div>
 
-        <div className="dragHint">Drag teams into tiers. Pool is always alphabetized.</div>
+      <div
+        ref={setNodeRef}
+        className="list tapTarget"
+        onClick={() => onContainerTap?.(POOL_ID)}
+        style={{
+          background: isOver ? "rgba(47, 111, 62, 0.06)" : "transparent",
+          borderRadius: 12,
+        }}
+      >
+        <SortableContext items={poolIds} strategy={verticalListSortingStrategy}>
+          {poolIds.map((id) => (
+            <SortableTeam
+              key={id}
+              id={id}
+              team={teamsById[id]}
+              showRank={false}
+              selected={selectedTeamId === id}
+              onClick={(e) => {
+                e.stopPropagation();
+                onTeamTap?.(id);
+              }}
+            />
+          ))}
+        </SortableContext>
       </div>
     </div>
   );
 }
-

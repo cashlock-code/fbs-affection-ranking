@@ -1,88 +1,148 @@
+/* =========================
+   Base theme
+   ========================= */
+
 :root {
-  --bg: #f3f8f2;
+  --bg: #f5faf6;
   --panel: #ffffff;
-  --text: #142018;
-  --muted: #5b6a60;
-  --border: #d7e3d6;
-  --accent: #2f6f3e;
-  --accent-2: #1d4f2a;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-  --radius: 14px;
-  --gap: 12px;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  color: var(--text);
+  --text: #0f1f16;
+  --muted: rgba(15, 31, 22, 0.62);
+  --border: rgba(15, 31, 22, 0.12);
+
+  --green: #2f6f3e;
+  --green-weak: rgba(47, 111, 62, 0.12);
+
+  --danger: #b83232;
+  --danger-weak: rgba(184, 50, 50, 0.10);
+
+  --shadow: 0 10px 26px rgba(15, 31, 22, 0.08);
+  --radius: 16px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
   margin: 0;
-  background: linear-gradient(180deg, var(--bg), #ffffff);
+  padding: 0;
+  background: radial-gradient(1200px 600px at 50% -200px, rgba(47, 111, 62, 0.18), transparent 60%),
+    linear-gradient(180deg, #f3fbf5, #f7fbf7 40%, #ffffff 100%);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
 }
 
-a { color: inherit; }
+a {
+  color: inherit;
+}
 
-.shell {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 16px;
-  padding: 18px;
-  max-width: 1400px;
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.page {
+  max-width: 1260px;
   margin: 0 auto;
+  padding: 18px 16px 40px;
 }
 
-.header {
-  grid-column: 1 / -1;
-  background: var(--panel);
+/* =========================
+   Top bar
+   ========================= */
+
+.topbar {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.76));
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 16px;
   box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  backdrop-filter: blur(8px);
 }
 
 .hgroup h1 {
+  margin: 0;
   font-size: 18px;
-  margin: 0 0 2px 0;
   letter-spacing: 0.2px;
 }
+
 .hgroup p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
+  margin: 6px 0 0;
+  max-width: 720px;
 }
 
 .actions {
   display: flex;
+  align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: flex-end;
 }
 
+/* Buttons */
 button {
+  appearance: none;
   border: 1px solid var(--border);
-  background: var(--panel);
-  padding: 9px 11px;
-  border-radius: 10px;
+  background: #ffffff;
+  color: var(--text);
+  padding: 9px 12px;
+  border-radius: 14px;
   cursor: pointer;
-  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 2px 10px rgba(15, 31, 22, 0.06);
 }
-button.primary {
-  border-color: rgba(47, 111, 62, 0.35);
-  background: rgba(47, 111, 62, 0.08);
-  color: var(--accent-2);
+
+button:hover {
+  border-color: rgba(15, 31, 22, 0.20);
 }
-button.danger {
-  border-color: rgba(172, 39, 39, 0.35);
-  background: rgba(172, 39, 39, 0.06);
-  color: #7a1b1b;
+
+button:active {
+  transform: translateY(1px);
 }
+
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
+
+button.primary {
+  background: linear-gradient(180deg, rgba(47, 111, 62, 0.94), rgba(47, 111, 62, 0.88));
+  color: #fff;
+  border-color: rgba(47, 111, 62, 0.35);
+}
+
+button.primary:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+button.danger {
+  background: linear-gradient(180deg, rgba(184, 50, 50, 0.96), rgba(184, 50, 50, 0.86));
+  color: #fff;
+  border-color: rgba(184, 50, 50, 0.35);
+}
+
+button.danger:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================
+   Panels / layout
+   ========================= */
 
 .panel {
   background: var(--panel);
@@ -91,236 +151,327 @@ button:disabled {
   box-shadow: var(--shadow);
 }
 
-.panel-header {
-  padding: 12px 12px 0 12px;
-}
-.panel-body {
-  padding: 12px;
-}
-
-.input {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 10px;
-  font-size: 14px;
-  outline: none;
-}
-.row {
-  display: flex;
-  gap: 10px;
-}
-.select {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 10px;
-  font-size: 14px;
-  background: white;
-  outline: none;
+.layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 14px;
+  margin-top: 14px;
+  align-items: start;
 }
 
 .tiers {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
-.tier {
-  padding: 12px;
+/* Responsive */
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    justify-content: flex-start;
+  }
 }
 
-.tier-top {
+/* =========================
+   Pool / filters (assumes Pool.jsx uses these)
+   ========================= */
+
+.poolTop {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.poolTop .row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+input[type="text"],
+select {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 9px 10px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: rgba(47, 111, 62, 0.35);
+  box-shadow: 0 0 0 4px rgba(47, 111, 62, 0.10);
+}
+
+/* =========================
+   Tier containers
+   ========================= */
+
+.tier {
+  overflow: hidden;
+}
+
+.tierHeader {
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.tier-title {
-  display: flex;
-  align-items: baseline;
   gap: 10px;
 }
-.tier-title h2 {
+
+.tierHeader h2 {
   margin: 0;
-  font-size: 15px;
-}
-.small {
-  color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .toggle {
   display: inline-flex;
   gap: 8px;
   align-items: center;
+  font-size: 12px;
   color: var(--muted);
-  font-size: 13px;
   user-select: none;
 }
 
-.list {
-  min-height: 44px;
-  border: 1px dashed var(--border);
-  border-radius: 12px;
-  padding: 8px;
-  background: linear-gradient(180deg, #ffffff, #fbfdfb);
+.toggle input {
+  width: 16px;
+  height: 16px;
 }
+
+/* Lists */
+.list {
+  padding: 10px;
+  min-height: 58px;
+}
+
+.list.tapTarget {
+  cursor: pointer;
+}
+
+/* =========================
+   Team rows
+   ========================= */
 
 .team-row {
-  display: grid;
-  grid-template-columns: 26px 1fr auto;
-  gap: 10px;
-  align-items: center;
-  padding: 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: white;
-  margin-bottom: 8px;
-}
-
-.team-row:last-child { margin-bottom: 0; }
-
-.logo {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-}
-
-.team-name {
-  font-weight: 700;
-  font-size: 13.5px;
-  line-height: 1.1;
-}
-
-.badge {
-  font-size: 11px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(47, 111, 62, 0.25);
-  background: rgba(47, 111, 62, 0.08);
-  color: var(--accent-2);
-  white-space: nowrap;
-}
-
-.dragHint {
-  color: var(--muted);
-  font-size: 12px;
-  padding: 6px 2px 0 2px;
-}
-
-.modalBackdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  display: grid;
-  place-items: center;
-  padding: 16px;
-  z-index: 50;
-}
-
-.modal {
-  width: min(920px, 96vw);
-  max-height: 92vh;
-  overflow: auto;
-  background: white;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-.modalHeader {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(15, 31, 22, 0.10);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.90));
+  box-shadow: 0 3px 14px rgba(15, 31, 22, 0.06);
+  margin-bottom: 8px;
+    touch-action: none;
+      user-select: none;
+}
+
+.team-row:last-child {
+  margin-bottom: 0;
+}
+
+.team-row:hover {
+  border-color: rgba(15, 31, 22, 0.18);
+}
+
+.team-row.selected {
+  outline: 2px solid rgba(47, 111, 62, 0.55);
+  box-shadow: 0 0 0 3px rgba(47, 111, 62, 0.12);
+}
+
+.logo {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.team-name {
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.1px;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* rank number pill (ordered tiers) */
+.rankNum {
+  font-size: 11px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(47, 111, 62, 0.10);
+  border: 1px solid rgba(47, 111, 62, 0.18);
+  color: rgba(15, 31, 22, 0.78);
+  white-space: nowrap;
+}
+
+/* conference badge */
+.badge {
+  font-size: 11px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(15, 31, 22, 0.06);
+  border: 1px solid rgba(15, 31, 22, 0.10);
+  color: rgba(15, 31, 22, 0.70);
+  white-space: nowrap;
+}
+
+/* Tap banner */
+.tapBanner {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.tapBanner strong {
+  color: var(--text);
+}
+
+/* =========================
+   Modal (Export text / PNG)
+   ========================= */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 31, 22, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 1000;
+}
+
+.modal {
+  width: min(940px, 96vw);
+  max-height: 92vh;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(10px);
+}
+
+.modalTop {
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(15, 31, 22, 0.10);
+}
+
+.modalTop h2 {
+  margin: 0;
+  font-size: 15px;
 }
 
 .modalBody {
-  padding: 16px;
+  padding: 14px;
 }
 
-.textarea {
+.modalActions {
+  padding: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(15, 31, 22, 0.10);
+}
+
+textarea.exportTextArea {
   width: 100%;
-  min-height: 360px;
+  min-height: 320px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 13px;
-}
-
-.exportCardWrap {
-  display: grid;
-  place-items: center;
+  border-radius: 14px;
   padding: 10px;
+  resize: vertical;
 }
 
+/* =========================
+   Sicko Mode list
+   ========================= */
+
+.sickoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sickoList {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.sickoRow {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 6px 0;
+    touch-action: none;
+}
+
+.sickoArrows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 34px;
+}
+
+.arrowBtn {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 12px;
+  padding: 7px 0;
+  line-height: 1;
+  box-shadow: 0 2px 10px rgba(15, 31, 22, 0.06);
+}
+
+.arrowBtn:hover {
+  border-color: rgba(15, 31, 22, 0.20);
+}
+
+.arrowBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sickoIndex {
+  width: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* =========================
+   Export card (PNG)
+   ========================= */
+
+/* Narrower export card */
 .exportCard {
-  width: 820px;          /* narrower than before */
+  width: 820px;
   max-width: 820px;
   background: linear-gradient(180deg, #f3f8f2, #ffffff);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(15, 31, 22, 0.12);
   border-radius: 18px;
   padding: 14px;
 }
 
-.exportTitle {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.exportTitle h1 {
-  margin: 0;
-  font-size: 28px;
+/* Title area */
+.exportTop h1 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
   letter-spacing: 0.2px;
-}
-
-.exportGrid {
-  display: grid;
-  grid-template-columns: 1fr;   /* default: single column */
-  gap: 10px;
-}
-@media (min-width: 900px) {
-  .exportGrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.exportTier {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 10px; /* was 12px */
-}
-
-.exportTier h2 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-}
-
-.exportTeam {
-  display: grid;
-  grid-template-columns: 22px 1fr auto;
-  gap: 8px;
-  align-items: center;
-  padding: 6px 8px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 6px;
-}
-.exportTeam:last-child { margin-bottom: 0; }
-
-.rankNum {
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  font-size: 12px;
 }
 
 .exportFooterUrl {
@@ -330,21 +481,91 @@ button:disabled {
   text-align: center;
 }
 
-.team-row.selected {
-  outline: 2px solid rgba(47, 111, 62, 0.55);
-  box-shadow: 0 0 0 3px rgba(47, 111, 62, 0.12);
+/* Normal export: single column to keep narrow */
+.exportGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
-.list.tapTarget {
-  cursor: pointer;
+.exportTier {
+  background: #fff;
+  border: 1px solid rgba(15, 31, 22, 0.10);
+  border-radius: 14px;
+  padding: 10px;
 }
 
-.tapBanner {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.tapBanner strong {
-  color: var(--text);
+.exportTier h2 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
 }
 
+/* Export team row */
+.exportTeam {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 31, 22, 0.08);
+  background: rgba(255, 255, 255, 0.98);
+  margin-bottom: 6px;
+}
+
+.exportTeam:last-child {
+  margin-bottom: 0;
+}
+
+/* Sicko export: two columns list */
+.exportSickoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.exportSickoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* =========================
+   Minor utility
+   ========================= */
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 12px 0;
+}
+
+/* Sicko Mode layout: make the All Teams panel wide */
+.sickoWrap {
+  width: 100%;
+}
+
+.sickoHeaderWide {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sickoControls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+}
+
+/* Make Sicko Mode panel take full row even if layout grid is two columns */
+.layout .panel.sickoPanelWide {
+  grid-column: 1 / -1;
+}
